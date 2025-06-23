@@ -14,6 +14,7 @@ import {
 } from 'recharts'
 import { areaData, barData, scrollData, todayIndex } from './mockData' // Importing mock data
 
+// when hovering over the chart, highlight the active label by making it bold.
 function CustomAxisTick({ x, y, payload }, activeLabel) {
   const isActive = payload.value === activeLabel
   return (
@@ -30,7 +31,6 @@ function CustomAxisTick({ x, y, payload }, activeLabel) {
 }
 
 function App() {
-  const [activeIndex, setActiveIndex] = useState(null)
   const [activeLabel, setActiveLabel] = useState('')
   const [areaDataState, setAreaDataState] = useState(areaData())
   const [barDataState, setBarDataState] = useState(barData())
@@ -57,14 +57,13 @@ function App() {
                   width={1100}
                   height={400}
                   data={areaDataState}
+                  syncId="crossHighlight"
                   onMouseMove={(e) => {
                     if (e && e.activeLabel && e.activeTooltipIndex) {
-                      setActiveIndex(e.activeTooltipIndex)
                       setActiveLabel(e.activeLabel)
                     }
                   }}
                   onMouseLeave={() => {
-                    setActiveIndex(-1)
                     setActiveLabel('')
                   }}
                 >
@@ -89,10 +88,7 @@ function App() {
                     height={70}
                   />
                   <YAxis />
-                  <Tooltip
-                    cursor={{ stroke: '#2ecc71', strokeWidth: 3 }}
-                    active={activeIndex != null}
-                  />
+                  <Tooltip cursor={{ stroke: '#2ecc71', strokeWidth: 3 }} />
                   <Area
                     type="monotone"
                     dataKey="balance"
@@ -131,14 +127,13 @@ function App() {
                   width={1100}
                   height={400}
                   data={barDataState}
+                  syncId="crossHighlight"
                   onMouseMove={(e) => {
                     if (e && e.activeLabel && e.activeTooltipIndex) {
-                      setActiveIndex(e.activeTooltipIndex)
                       setActiveLabel(e.activeLabel)
                     }
                   }}
                   onMouseLeave={() => {
-                    setActiveIndex(-1)
                     setActiveLabel('')
                   }}
                 >
@@ -148,7 +143,7 @@ function App() {
                     tick={(props) => CustomAxisTick(props, activeLabel)}
                   />
                   <YAxis />
-                  <Tooltip active={activeIndex >= 0} />
+                  <Tooltip />
                   <Legend />
                   <Bar
                     dataKey="total_cash_in"
