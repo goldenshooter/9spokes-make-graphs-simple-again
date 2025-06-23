@@ -83,9 +83,8 @@ function App() {
                   <XAxis
                     dataKey="month"
                     tick={(props) => CustomAxisTick(props, activeLabel)}
-                    angle={-45}
-                    textAnchor="end"
                     height={70}
+                    padding={{ right: 30 }}
                   />
                   <YAxis />
                   <Tooltip cursor={{ stroke: '#2ecc71', strokeWidth: 3 }} />
@@ -147,14 +146,14 @@ function App() {
                   <Legend />
                   <Bar
                     dataKey="total_cash_in"
-                    fill="#a8dcc7"
-                    activeBar={{ fill: '#3eb88c' }}
+                    name="Total cash in"
+                    fill="#3eb88c"
                     radius={[4, 4, 0, 0]}
                   />
                   <Bar
                     dataKey="total_cash_out"
-                    fill="#a5c0db"
-                    activeBar={{ fill: '#397eb8' }}
+                    name="Total cash out"
+                    fill="#397eb8"
                     radius={[4, 4, 0, 0]}
                   />
                 </BarChart>
@@ -257,7 +256,7 @@ function App() {
                         angle={-45}
                         textAnchor="end"
                         height={60}
-                        padding={{ left: 30, right: 30 }}
+                        padding={{ left: 28, right: 30 }}
                       />
                       <Tooltip cursor={{ stroke: '#2ecc71', strokeWidth: 3 }} />
                       <ReferenceLine
@@ -303,7 +302,12 @@ function App() {
                         strokeWidth={2}
                         fill="transparent"
                         connectNulls
-                        activeDot={false}
+                        activeDot={{
+                          r: 8,
+                          stroke: '#2ecc71',
+                          strokeWidth: 3,
+                          fill: '#2ecc71',
+                        }}
                       />
 
                       {/* Low line (dotted) */}
@@ -336,7 +340,7 @@ function App() {
           className="text-center w-100"
           style={{ color: '#b0b0b0', fontSize: 14 }}
         >
-          Build by Steven Zhang, your friendly neighbourhood.
+          Build by your friendly neighbourhood Steven Zhang.
         </Navbar.Text>
       </Navbar>
     </>
