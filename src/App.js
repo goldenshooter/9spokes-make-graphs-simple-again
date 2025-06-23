@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Row, Col, Card } from 'react-bootstrap'
+import { Button, Container, Row, Col, Card } from 'react-bootstrap'
 import {
   AreaChart,
   Area,
@@ -32,18 +32,30 @@ function CustomAxisTick({ x, y, payload }, activeLabel) {
 function App() {
   const [activeIndex, setActiveIndex] = useState(null)
   const [activeLabel, setActiveLabel] = useState('')
+  const [areaDataState, setAreaDataState] = useState(areaData())
+  const [barDataState, setBarDataState] = useState(barData())
+  const [scrollDataState, setScrollDataState] = useState(scrollData())
 
   return (
     <Container className="my-4">
       <Row className="mb-4">
         <Col>
           <Card>
+            <Card.Header className="d-flex justify-content-between align-items-center">
+              <span>Balance Summary</span>
+              <Button
+                onClick={() => {
+                  setAreaDataState(areaData())
+                }}
+              >
+                Regenerate data
+              </Button>
+            </Card.Header>
             <Card.Body>
-              <Card.Title>Balance Summary</Card.Title>
               <AreaChart
                 width={1100}
                 height={400}
-                data={areaData}
+                data={areaDataState}
                 onMouseMove={(e) => {
                   if (e && e.activeLabel && e.activeTooltipIndex) {
                     setActiveIndex(e.activeTooltipIndex)
@@ -97,12 +109,21 @@ function App() {
       <Row className="mb-4">
         <Col>
           <Card>
+            <Card.Header className="d-flex justify-content-between align-items-center">
+              <span>Transaction Summary</span>
+              <Button
+                onClick={() => {
+                  setBarDataState(barData())
+                }}
+              >
+                Regenerate data
+              </Button>
+            </Card.Header>
             <Card.Body>
-              <Card.Title>Transaction Summary</Card.Title>
               <BarChart
                 width={1100}
                 height={400}
-                data={barData}
+                data={barDataState}
                 onMouseMove={(e) => {
                   if (e && e.activeLabel && e.activeTooltipIndex) {
                     setActiveIndex(e.activeTooltipIndex)
@@ -143,8 +164,17 @@ function App() {
       <Row>
         <Col>
           <Card>
+            <Card.Header className="d-flex justify-content-between align-items-center">
+              <span>Automated forecast</span>
+              <Button
+                onClick={() => {
+                  setScrollDataState(scrollData())
+                }}
+              >
+                Regenerate data
+              </Button>
+            </Card.Header>
             <Card.Body>
-              <Card.Title>Automated forecast</Card.Title>
               <div style={{ display: 'flex', position: 'relative' }}>
                 {/* Fixed Y-axis */}
                 <div
@@ -155,7 +185,7 @@ function App() {
                   <AreaChart
                     width={80}
                     height={400}
-                    data={scrollData}
+                    data={scrollDataState}
                     margin={{ left: 0 }}
                   >
                     <YAxis width={80} />
@@ -174,7 +204,7 @@ function App() {
                   <AreaChart
                     width={2000} // Big chart
                     height={400}
-                    data={scrollData}
+                    data={scrollDataState}
                     margin={{ left: 0 }}
                   >
                     <defs>
@@ -229,7 +259,7 @@ function App() {
                     />
                     <Tooltip cursor={{ stroke: '#2ecc71', strokeWidth: 3 }} />
                     <ReferenceLine
-                      x={scrollData[todayIndex].day}
+                      x={scrollDataState[todayIndex]?.day}
                       stroke="#2ecc71"
                       strokeWidth={2}
                       label="Today"
