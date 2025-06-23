@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import React, { useState } from 'react'
+import { Container, Row, Col, Card } from 'react-bootstrap'
 import {
   AreaChart,
   Area,
@@ -11,11 +11,11 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-} from 'recharts';
-import { areaData, barData, scrollData, todayIndex } from './mockData'; // Importing mock data
+} from 'recharts'
+import { areaData, barData, scrollData, todayIndex } from './mockData' // Importing mock data
 
 function CustomAxisTick({ x, y, payload }, activeLabel) {
-  const isActive = payload.value === activeLabel;
+  const isActive = payload.value === activeLabel
   return (
     <text
       x={x}
@@ -26,12 +26,12 @@ function CustomAxisTick({ x, y, payload }, activeLabel) {
     >
       {payload.value}
     </text>
-  );
+  )
 }
 
 function App() {
-  const [activeIndex, setActiveIndex] = useState(null);
-  const [activeLabel, setActiveLabel] = useState('');
+  const [activeIndex, setActiveIndex] = useState(null)
+  const [activeLabel, setActiveLabel] = useState('')
 
   return (
     <Container className="my-4">
@@ -46,13 +46,13 @@ function App() {
                 data={areaData}
                 onMouseMove={(e) => {
                   if (e && e.activeLabel && e.activeTooltipIndex) {
-                    setActiveIndex(e.activeTooltipIndex);
-                    setActiveLabel(e.activeLabel);
+                    setActiveIndex(e.activeTooltipIndex)
+                    setActiveLabel(e.activeLabel)
                   }
                 }}
                 onMouseLeave={() => {
-                  setActiveIndex(-1);
-                  setActiveLabel('');
+                  setActiveIndex(-1)
+                  setActiveLabel('')
                 }}
               >
                 <defs>
@@ -105,13 +105,13 @@ function App() {
                 data={barData}
                 onMouseMove={(e) => {
                   if (e && e.activeLabel && e.activeTooltipIndex) {
-                    setActiveIndex(e.activeTooltipIndex);
-                    setActiveLabel(e.activeLabel);
+                    setActiveIndex(e.activeTooltipIndex)
+                    setActiveLabel(e.activeLabel)
                   }
                 }}
                 onMouseLeave={() => {
-                  setActiveIndex(-1);
-                  setActiveLabel('');
+                  setActiveIndex(-1)
+                  setActiveLabel('')
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" vertical={false} />
@@ -293,7 +293,7 @@ function App() {
         </Col>
       </Row>
     </Container>
-  );
+  )
 }
 
-export default App;
+export default App
